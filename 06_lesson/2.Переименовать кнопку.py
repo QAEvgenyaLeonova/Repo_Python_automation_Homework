@@ -23,6 +23,3 @@ sleep(2)
 
 driver.quit()
 
-
-
-

@@ -19,8 +19,3 @@ sleep(3)
 
 driver.quit()
 
-
-
-
-
-
