@@ -1,25 +1,33 @@
-from time import sleep
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.firefox.service import Service as FirefoxService
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
 
-driver.get('http://uitestingplayground.com/textinput')
+try:
+    driver.get('http://uitestingplayground.com/textinput')
 
-text_new = driver.find_element(By.CSS_SELECTOR, '#newButtonName')
-text_new.send_keys('SkyPro')
+    wait = WebDriverWait(driver, 10)
+    text_field = wait.until(
+        EC.element_to_be_clickable((By.CSS_SELECTOR, '#newButtonName'))
+    )
 
-press_button = driver.find_element(By.CSS_SELECTOR, '.btn-primary')
-press_button.click()
+    text_field.send_keys('SkyPro')
 
-sleep(2)
+    button = wait.until(
+        EC.element_to_be_clickable((By.CSS_SELECTOR, '.btn-primary'))
+    )
+    button.click()
 
-button_text = driver.find_element(By.CSS_SELECTOR, '.btn-primary').text
-print(button_text)
+    updated_button = wait.until(
+        EC.text_to_be_present_in_element((By.CSS_SELECTOR, '.btn-primary'), 'SkyPro')
+    )
 
-sleep(2)
+    button_text = driver.find_element(By.CSS_SELECTOR, '.btn-primary').text
+    print(button_text)  # Вывод: SkyPro
 
-driver.quit()
-
+finally:
+    driver.quit()
