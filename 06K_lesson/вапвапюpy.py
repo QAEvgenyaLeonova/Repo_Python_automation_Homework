@@ -42,7 +42,6 @@ def test_form_validation_colors():
 
         WebDriverWait(driver, 5).until(lambda d: d.execute_script('return document.readyState') == 'complete')
 
-        driver.refresh()
 
         wait.until(EC.visibility_of_element_located((By.ID, 'zip-code')))
         wait.until(EC.visibility_of_element_located((By.ID, 'first-name')))
