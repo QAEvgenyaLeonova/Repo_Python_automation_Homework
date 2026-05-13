@@ -48,4 +48,3 @@ def test_users_registration():
 
     finally:
         driver.quit()
-
